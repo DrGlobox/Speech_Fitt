@@ -5,6 +5,7 @@ from PyQt4.QtCore import *
 import sys
 
 from browser import *
+from speech import *
 
 class MainWindow():
 
@@ -14,9 +15,15 @@ class MainWindow():
         self.window.setWindowTitle(u"Speech Fitts")
         self.window.resize(640,400)
         self.createInterface()
+        self.createSpeech()
+
             
     def show(self):
         self.window.show()
+
+    def createSpeech(self):
+        self.speech = Speech()
+        self.speech.start()
 
     def createInterface(self):
         self.prevButton = QPushButton(u"Précédent")
