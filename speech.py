@@ -7,16 +7,15 @@ import subprocess
 
 
 class Speech(QThread):
-    def __init__(self):
+    def __init__(self,index):
         QThread.__init__(self)
-        self.IsRunning = True
+        self.index = index
 
     def __del__(self):
         self.wait()
 
     def run(self):
         p=subprocess.Popen(["./speech.sh"],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-        while self.IsRunning :
-            line = p.stdout.readline()
-            print line
+        line = p.stdout.readline()
+        self.emit(SIGNAL("understand"),self.index,line)
         return

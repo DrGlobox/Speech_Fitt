@@ -22,8 +22,12 @@ class MainWindow():
         self.window.show()
 
     def createSpeech(self):
-        self.speech = Speech()
-        self.speech.start()
+        self.speech_1 = Speech(1)
+        self.window.connect(self.speech_1,SIGNAL("understand"),self.understand)
+        self.speech_2 = Speech(2)
+        self.window.connect(self.speech_2,SIGNAL("understand"),self.understand)
+
+        self.speech_1.start()
 
     def createInterface(self):
         self.prevButton = QPushButton(u"Précédent")
@@ -35,6 +39,8 @@ class MainWindow():
         self.homeButton = QPushButton(u"Home")
         self.homeButton.setIcon(QIcon("./Icon/home.png"))
         self.window.connect(self.homeButton,SIGNAL("clicked()"),self.homePage)
+
+        self.window.statusBar().showMessage("OK")
         
         self.cmdButton = QPushButton(u"Lancer écoute")
 
@@ -68,3 +74,10 @@ class MainWindow():
 
     def homePage(self):
         self.browser.dirClicked(QDir.homePath())
+
+    def understand(self, index, line):
+        if index == 2 : self.speech_1.start()
+        else : self.speech_2.start()
+        if line != "":
+            self.window.statusBar().showMessage(u"Écoute : "+line);
+        print index," >> ",line
