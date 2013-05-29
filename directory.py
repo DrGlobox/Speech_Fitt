@@ -6,10 +6,10 @@ import sys
 
 class Directory(QWidget):
 
-    def __init__(self,parent,path):
+    def __init__(self,parent,name,path):
         QWidget.__init__ (self,parent)
         self.path = path
-        self.name = path.split("/")[-1]
+        self.name = name
         self.createInterface()
         #self.setStyleSheet("background-color:red;");
 

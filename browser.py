@@ -11,8 +11,12 @@ class BrowserWidget(QScrollArea):
 
     def __init__(self,parent):
         QScrollArea.__init__ (self,parent)
+
+        self.dires = []
+        self.files = []
+
         self.createInterface()
-        self.curDir = QDir.home()
+        self.curDir = QDir.current()
         self.changeDir(self.curDir)
 
         self.prevPath = self.curDir.path()
@@ -22,23 +26,29 @@ class BrowserWidget(QScrollArea):
         self.setGeometry(0,0,600,350)
         self.setWidgetResizable(True)
         self.setEnabled(True)
-        self.scrollingWidget = QWidget()
+        self.scrollingWidget = QWidget(self)
         self.setWidget(self.scrollingWidget)
         self.VLayout = QVBoxLayout(self.scrollingWidget)
         self.scrollingWidget.setLayout(self.VLayout)
 
     def changeDir(self,directory):
         i=j=0
-        self.dires = []
         for component in directory.entryList(QDir.Dirs):
-            dirWidget = Directory(self.scrollingWidget,directory.path()+"/"+component)
+            path = directory.path()+"/"+component
+            if component == "." : 
+                path = directory.path() 
+            elif component == ".." : 
+                tmpDir = QDir(directory)
+                tmpDir.cdUp()
+                path = tmpDir.path()
+            dirWidget = Directory(self.scrollingWidget,component,path)
             dirWidget.setGeometry(i,j,100,100)
             dirWidget.show()
-            self.dires += [dirWidget]
+            self.dires.append(dirWidget)
             self.connect(dirWidget,SIGNAL("clicked"),self.dirClicked)
             i+=110; 
             if i >= (self.width()-100) : j+=110; i=0
-        self.files = []
+
         directory.setNameFilters(["*.txt"])
         for component in directory.entryList(QDir.Files):
             fileWidget = File(self.scrollingWidget,directory.path()+"/"+component)
@@ -63,4 +73,9 @@ class BrowserWidget(QScrollArea):
     def cleanDires(self):
         for component in self.dires:
             component.setParent(None)
-            component.deleteLater()
+            component.close()
+        self.dires = []
+        for component in self.files:
+            component.setParent(None)
+            component.close()
+        self.files = []

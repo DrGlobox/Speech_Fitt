@@ -17,17 +17,12 @@ class MainWindow():
         self.createInterface()
         self.createSpeech()
 
-            
     def show(self):
         self.window.show()
 
     def createSpeech(self):
-        self.speech_1 = Speech(1)
-        self.window.connect(self.speech_1,SIGNAL("understand"),self.understand)
-        self.speech_2 = Speech(2)
-        self.window.connect(self.speech_2,SIGNAL("understand"),self.understand)
-
-        self.speech_1.start()
+        self.speech = Speech()
+        self.window.connect(self.speech,SIGNAL("understand"),self.understand)
 
     def createInterface(self):
         self.prevButton = QPushButton(u"Précédent")
@@ -75,9 +70,7 @@ class MainWindow():
     def homePage(self):
         self.browser.dirClicked(QDir.homePath())
 
-    def understand(self, index, line):
-        if index == 2 : self.speech_1.start()
-        else : self.speech_2.start()
+    def understand(self,line):
         if line != "":
             self.window.statusBar().showMessage(u"Écoute : "+line);
-        print index," >> ",line
+        print " >> ",line
