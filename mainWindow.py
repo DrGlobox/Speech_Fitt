@@ -6,6 +6,8 @@ import sys
 
 from browser import *
 from speech import *
+from helpBox import *
+from analyser import *
 
 class MainWindow():
 
@@ -15,10 +17,21 @@ class MainWindow():
         self.window.setWindowTitle(u"Speech Fitts")
         self.window.resize(640,400)
         self.createInterface()
+        self.createHelp()
+        self.createAnalyser()
         self.createSpeech()
 
     def show(self):
         self.window.show()
+
+    def createAnalyser(self):
+        self.analyser = Analyser()
+        self.window.connect(self.window,SIGNAL("analyse"),self.analyser.analyse)
+
+    def createHelp(self):
+        self.helpWigdet = HelpBox()
+        self.window.connect(self.helpButton,SIGNAL("clicked()"),self.helpWigdet.toggleShow)
+
 
     def createSpeech(self):
         self.speech = Speech()
@@ -37,7 +50,7 @@ class MainWindow():
 
         self.window.statusBar().showMessage("OK")
         
-        self.cmdButton = QPushButton(u"Lancer écoute")
+        self.helpButton = QPushButton(u"?")
 
         self.browser = BrowserWidget(self.window)
         self.browser.setStyleSheet("background-color:white;");
@@ -48,7 +61,7 @@ class MainWindow():
         layout.addWidget(self.nextButton)
         layout.addWidget(self.homeButton)
         layout.addStretch()
-        layout.addWidget(self.cmdButton)
+        layout.addWidget(self.helpButton)
 
         bigLayout = QVBoxLayout()
         bigLayout.addLayout(layout)
@@ -72,5 +85,6 @@ class MainWindow():
 
     def understand(self,line):
         if line != "":
+            self.window.emit(SIGNAL("analyse"),line)
             self.window.statusBar().showMessage(u"Écoute : "+line);
         print " >> ",line

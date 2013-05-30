@@ -18,7 +18,7 @@ class Sender(QThread):
     def run(self):
         #print "[",self.id_,"] send : ",self.index
         p=subprocess.Popen(["./send.sh",str(self.index)],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-        line = p.stdout.readline()
+        line = unicode(p.stdout.readline(), "utf-8")
         self.emit(SIGNAL("understand"),line)
 
     def analyse(self,index):
