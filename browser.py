@@ -20,7 +20,6 @@ class BrowserWidget(QScrollArea):
         self.changeDir(self.curDir)
 
         self.prevPath = self.curDir.path()
-        self.nextPath = self.curDir.path()
 
     def createInterface(self):
         self.setGeometry(0,0,600,350)
@@ -62,9 +61,10 @@ class BrowserWidget(QScrollArea):
     def dirClicked(self,path):
         self.update()
         self.cleanDires()
+        self.prevPath = self.curDir.path()
+        print path
         directory = QDir(path)
         self.curDir = directory
-        self.nextPath = self.curDir.path()
         self.changeDir(directory)
 
     def fileClicked(self,path):
