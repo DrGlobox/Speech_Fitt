@@ -17,10 +17,28 @@ class HelpBox(QWidget):
 
     def createInterface(self):
         layout = QVBoxLayout(self)
-        title = QLabel(u"Besoin d'aide ?")
-        corps = QLabel(u"--> et bien débrouille toi")
+        title = QLabel(u"<b>Besoin d'aide ?</b>")
+        title.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Fixed|QSizePolicy.Minimum)
+        title.setAlignment(Qt.AlignCenter);
+
+        corps = QLabel(u"\
+                <b>Ouvrir un document : </b><br/>\
+                &bull;   dire : <i>\"Ouvrir nom_fichier\"</i><br/>\
+                &bull;   dire : <i>\"nom_fichier\"</i><br/>\
+                <b>Fermer un document : </b><br/>\
+                &bull;   dire : <i>\"Fermer Aide\"</i><br/>\
+                &bull;   dire : <i>\"Fermer\"</i><br/>\
+                &bull;   dire : <i>\"Quitter\"</i><br/>\
+                <br/>\
+                n'oubliez pas de dire merci !")
+        corps.setAlignment(Qt.AlignTop);
+
+        scroll = QScrollArea()
+        scroll.setWidget(corps)
+        scroll.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Expanding)
+
         layout.addWidget(title)
-        layout.addWidget(corps)
+        layout.addWidget(scroll)
         
         exit = QPushButton(u"Fermer")
         self.connect(exit,SIGNAL("clicked()"),self.close)

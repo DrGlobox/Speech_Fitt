@@ -58,6 +58,7 @@ class BrowserWidget(QScrollArea):
             i+=110; 
             if i >= 500 : j+=110; i=0
 
+
     def dirClicked(self,path):
         self.update()
         self.cleanDires()
@@ -68,7 +69,7 @@ class BrowserWidget(QScrollArea):
         self.changeDir(directory)
 
     def fileClicked(self,path):
-        print path
+        self.emit(SIGNAL("file_clicked"),path)
 
     def cleanDires(self):
         for component in self.dires:
