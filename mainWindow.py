@@ -35,6 +35,8 @@ class MainWindow(QMainWindow):
         self.connect(self.analyser,SIGNAL("speech_close_help"),self.helpWigdet.toggleShow)
         self.connect(self.analyser,SIGNAL("speech_close_document"),self.quitEditor)
         self.connect(self.analyser,SIGNAL("speech_select"),self.selectText)
+        self.connect(self.analyser,SIGNAL("speech_erase"),self.eraseSel)
+        self.connect(self.analyser,SIGNAL("speech_save"),self.saveFile)
 
     def createHelp(self):
         self.helpWigdet = HelpBox()
@@ -129,8 +131,16 @@ class MainWindow(QMainWindow):
         if self.modeEditor:
             self.editor.find(sentence)
             cursor = self.editor.textCursor()
-            cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor,
-                    len(sentence))
+            cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor, len(sentence))
+
+    def eraseSel(self):
+        if self.modeEditor:
+            cursor = self.editor.textCursor()
+            cursor.removeSelectedText()
+
+    def saveFile(self):
+        if self.modeEditor:
+            self.editor.writeFile()
 
     def understand(self,line):
         if line != "":

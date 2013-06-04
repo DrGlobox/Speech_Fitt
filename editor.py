@@ -7,9 +7,12 @@ import sys
 class Editor(QTextEdit):
     def __init__(self,parent):
         QTextEdit.__init__ (self,parent)
+        self.path = ""
 
     def setFile(self,path):
-        f = open(path)
+        print path
+        f = open(path, 'r')
+        self.path = path
         txt = ""
         self.clear();
         for line in f:
@@ -17,3 +20,8 @@ class Editor(QTextEdit):
             txt = self.toPlainText() + line
             self.clear();
             self.setText(txt);
+
+    def writeFile(self):
+        f = open(self.path, 'w')
+        txt = self.toPlainText()
+        f.write(txt)

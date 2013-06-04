@@ -9,8 +9,8 @@ from levenshtein import *
 OPEN = [u"ouvrir",u"ouvre",u"va",u"dossier",u"fichier",u"ouvre"]
 RETURN = [u"retour",u"arrière",u"reviens",u"non",u"nan"]
 SELECT = [u"sélectionne", u"sélection", u"sélectionnez", u"trouvent", u"trouver"]
-ERASE = [u"efface", u"supprime", u"enlève"]
-SAVE = [u"sauvegarde", u"enregistre", u"sauver"]
+ERASE = [u"efface", u"supprime", u"enlève", u"suprime", u"effacer", u"supprimer", u"enlever"]
+SAVE = [u"sauvegarde", u"enregistre", u"sauvegarder", u"enregistrer"]
 HOME = [u"accueil",u"source",u"home"]
 HELP = [u"aide",u"comment"]
 CLOSE = [u"fermer",u"quitter",u"retour"]
@@ -47,6 +47,8 @@ class Analyser(QThread):
             elif action == "help" : self.help_command()
             elif action == "thank" : self.thank_command()
             elif action == "select" : self.select_command(" ".join(sentence[1:]))
+            elif action == "erase" : self.erase_command()
+            elif action == "save" : self.save_command()
             else : self.open_command(" ".join(sentence))
 
     def analyse(self,sentence):
@@ -65,6 +67,8 @@ class Analyser(QThread):
         if sentence[0] in CLOSE: return "close"
         if sentence[0] in THANK: return "thank"
         if sentence[0] in SELECT: return "select"
+        if sentence[0] in ERASE: return "erase"
+        if sentence[0] in SAVE: return "save"
         return "unknow"
 
     def thank_command(self):
@@ -98,8 +102,10 @@ class Analyser(QThread):
                 self.emit(SIGNAL("speech_directory"),path)
                 return
         for component in directory.entryList(QDir.Files):
-            if levenshtein(str(sentence), component.toLower()) <= tolerance_max or \
-                    levenshtein(str(sentence), component.split('.')[0].toLower()) <= tolerance_max :
+           # if levenshtein(str(sentence), component.toLower()) <= tolerance_max or \
+           #        levenshtein(str(sentence), component.split('.')[0].toLower()) <= tolerance_max :
+           if levenshtein(str(sentence), component.split('.')[0].toLower()) <= tolerance_max and \
+                   component.split('.')[1] == "txt" :
                 path = directory.path()+"/"+component
                 self.emit(SIGNAL("speech_file"),path)
                 return
@@ -110,6 +116,14 @@ class Analyser(QThread):
         if sentence == "" or self.editor.isVisible() == False : return
         if self.editor.find(sentence):
             self.emit(SIGNAL("speech_select"),sentence)
+
+    def erase_command(self):
+        if self.editor.isVisible == False : return
+        self.emit(SIGNAL("speech_erase"))
+
+    def save_command(self):
+        if self.editor.isVisible == False : return
+        self.emit(SIGNAL("speech_save"))
 
     def delete_accent(self, ligne):
         accent = [u'é', u'è', u'ê', u'à', u'ù', u'û', u'ç', u'ô', u'î', u'ï', u'â']
