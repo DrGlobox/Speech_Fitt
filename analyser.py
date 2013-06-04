@@ -8,6 +8,9 @@ from levenshtein import *
 
 OPEN = [u"ouvrir",u"ouvre",u"va",u"dossier",u"fichier",u"ouvre"]
 RETURN = [u"retour",u"arrière",u"reviens",u"non",u"nan"]
+SELECT = [u"sélectionne", u"sélection", u"surligne", u"trouve"]
+ERASE = [u"efface", u"supprime", u"enlève"]
+SAVE = [u"sauvegarde", u"enregistre", u"sauver"]
 HOME = [u"accueil",u"source",u"home"]
 HELP = [u"aide",u"comment"]
 CLOSE = [u"fermer",u"quitter",u"retour"]
@@ -86,6 +89,7 @@ class Analyser(QThread):
         if sentence == "" : return
         directory  = QDir(self.browser.curDir.path())
         for component in directory.entryList(QDir.Dirs):
+            sentence = sentence.encode('ascii', 'ignore')
             if levenshtein(str(sentence), component.toLower()) <= tolerance_max :
                 path = directory.path()+"/"+component
                 self.emit(SIGNAL("speech_directory"),path)
