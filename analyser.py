@@ -8,7 +8,7 @@ from levenshtein import *
 
 OPEN = [u"ouvrir",u"ouvre",u"va",u"dossier",u"fichier",u"ouvre"]
 RETURN = [u"retour",u"arrière",u"reviens",u"non",u"nan"]
-SELECT = [u"sélectionne", u"sélection", u"surligne", u"trouve"]
+SELECT = [u"sélectionne", u"sélection", u"sélectionnez", u"trouvent", u"trouver"]
 ERASE = [u"efface", u"supprime", u"enlève"]
 SAVE = [u"sauvegarde", u"enregistre", u"sauver"]
 HOME = [u"accueil",u"source",u"home"]
@@ -23,9 +23,10 @@ IGNORE = [u"j'ai dit ",u"je répète "]
 tolerance_max = 2
 
 class Analyser(QThread):
-    def __init__(self,browser,comment):
+    def __init__(self,browser, editor, comment):
         QThread.__init__(self)
         self.browser = browser
+        self.editor = editor
         self.comment = comment
         self.running = True
         self.order = []
@@ -45,6 +46,7 @@ class Analyser(QThread):
             elif action == "home" : self.home_command()
             elif action == "help" : self.help_command()
             elif action == "thank" : self.thank_command()
+            elif action == "select" : self.select_command(" ".join(sentence[1:]))
             else : self.open_command(" ".join(sentence))
 
     def analyse(self,sentence):
@@ -62,6 +64,7 @@ class Analyser(QThread):
         if sentence[0] in HELP: return "help"
         if sentence[0] in CLOSE: return "close"
         if sentence[0] in THANK: return "thank"
+        if sentence[0] in SELECT: return "select"
         return "unknow"
 
     def thank_command(self):
@@ -102,6 +105,11 @@ class Analyser(QThread):
                 return
         self.comment.setText(":(")
 
+
+    def select_command(self, sentence):
+        if sentence == "" or self.editor.isVisible() == False : return
+        if self.editor.find(sentence):
+            self.emit(SIGNAL("speech_select"),sentence)
 
     def delete_accent(self, ligne):
         accent = [u'é', u'è', u'ê', u'à', u'ù', u'û', u'ç', u'ô', u'î', u'ï', u'â']

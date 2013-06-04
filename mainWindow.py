@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.toggleTextEditor(False)
 
     def createAnalyser(self):
-        self.analyser = Analyser(self.browser,self.comment)
+        self.analyser = Analyser(self.browser, self.editor, self.comment)
         self.connect(self,SIGNAL("analyse"),self.analyser.analyse)
         self.connect(self.analyser,SIGNAL("speech_directory"),self.goPage)
         self.connect(self.analyser,SIGNAL("speech_file"),self.openFile)
@@ -34,6 +34,7 @@ class MainWindow(QMainWindow):
         self.connect(self.analyser,SIGNAL("speech_help"),self.helpWigdet.toggleShow)
         self.connect(self.analyser,SIGNAL("speech_close_help"),self.helpWigdet.toggleShow)
         self.connect(self.analyser,SIGNAL("speech_close_document"),self.quitEditor)
+        self.connect(self.analyser,SIGNAL("speech_select"),self.selectText)
 
     def createHelp(self):
         self.helpWigdet = HelpBox()
@@ -123,6 +124,13 @@ class MainWindow(QMainWindow):
     def homePage(self):
         if not self.modeEditor: 
             self.browser.dirClicked(QDir.homePath())
+
+    def selectText(self, sentence):
+        if self.modeEditor:
+            self.editor.find(sentence)
+            cursor = self.editor.textCursor()
+            cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor,
+                    len(sentence))
 
     def understand(self,line):
         if line != "":
