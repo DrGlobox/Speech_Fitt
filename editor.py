@@ -24,4 +24,5 @@ class Editor(QTextEdit):
     def writeFile(self):
         f = open(self.path, 'w')
         txt = self.toPlainText()
+        txt = unicode(txt, "utf-8")
         f.write(txt)
