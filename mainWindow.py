@@ -23,6 +23,7 @@ class MainWindow(QMainWindow):
 
         self.modeEditor = False
         self.toggleTextEditor(False)
+        self.testStarted = False
 
     def createAnalyser(self):
         self.analyser = Analyser(self.browser, self.editor, self.comment)
@@ -38,6 +39,7 @@ class MainWindow(QMainWindow):
         self.connect(self.analyser,SIGNAL("speech_erase"),self.eraseSel)
         self.connect(self.analyser,SIGNAL("speech_save"),self.saveFile)
         self.connect(self.analyser,SIGNAL("speech_write"),self.writeInFile)
+
     def createHelp(self):
         self.helpWigdet = HelpBox()
         self.connect(self.helpButton,SIGNAL("clicked()"),self.helpWigdet.toggleShow)
@@ -58,8 +60,9 @@ class MainWindow(QMainWindow):
         self.quitButton.setIcon(QIcon("./Icon/home.png"))
         self.connect(self.quitButton,SIGNAL("clicked()"),self.quitEditor)
 
-        self.testButton = QPushButton(u"Démarrer le test")
-        self.connect(self.quitButton, SIGNAL("clicked()"),self.launchTest)
+        self.testButton = QPushButton(u"")
+        self.testButton.setIcon(QIcon("./Icon/play.png"))
+        self.connect(self.testButton, SIGNAL("clicked()"),self.launchTest)
 
         self.comment = QLabel("")
 
@@ -82,6 +85,7 @@ class MainWindow(QMainWindow):
         layout.addStretch()
         layout.addWidget(self.comment)
         layout.addStretch()
+        layout.addWidget(self.testButton)
         layout.addWidget(self.helpButton)
 
         bigLayout = QVBoxLayout()
@@ -108,6 +112,15 @@ class MainWindow(QMainWindow):
             self.prevButton.show()
             self.homeButton.show()
             self.quitButton.hide()
+
+
+    def launchTest(self):
+        if self.testStarted == True:
+            self.testButton.setIcon(QIcon("./Icon/stop.png"))
+            self.testStarted = False
+        else:
+            self.testButton.setIcon(QIcon("./Icon/play.png"))
+            self.testStarted = True
 
     def openFile(self,path):
         if not self.modeEditor: 
