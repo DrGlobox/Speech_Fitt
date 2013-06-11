@@ -9,6 +9,7 @@ from speech import *
 from helpBox import *
 from analyser import *
 from editor import *
+from testBox import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,6 +22,7 @@ class MainWindow(QMainWindow):
         self.createAnalyser()
         self.createSpeech()
 
+        self.testBox = False
         self.modeEditor = False
         self.toggleTextEditor(False)
         self.testStarted = False
@@ -114,11 +116,13 @@ class MainWindow(QMainWindow):
             self.quitButton.hide()
 
 
+
     def launchTest(self):
         if self.testStarted == True:
             self.testButton.setIcon(QIcon("./Icon/stop.png"))
             self.testStarted = False
         else:
+            self.testBox = TestBox(self.modeEditor)
             self.testButton.setIcon(QIcon("./Icon/play.png"))
             self.testStarted = True
 
@@ -126,6 +130,9 @@ class MainWindow(QMainWindow):
         if not self.modeEditor: 
             self.toggleTextEditor(True)
             self.editor.setFile(path)
+        if self.testBox and self.testBox.isRunning :
+            if not self.testBox.modeEditor :
+                self.testBox.testPath(path)
 
     def quitEditor(self):
         if self.modeEditor: 
