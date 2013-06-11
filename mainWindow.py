@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         self.connect(self.analyser,SIGNAL("speech_select"),self.selectText)
         self.connect(self.analyser,SIGNAL("speech_erase"),self.eraseSel)
         self.connect(self.analyser,SIGNAL("speech_save"),self.saveFile)
-
+        self.connect(self.analyser,SIGNAL("speech_write"),self.writeInFile)
     def createHelp(self):
         self.helpWigdet = HelpBox()
         self.connect(self.helpButton,SIGNAL("clicked()"),self.helpWigdet.toggleShow)
@@ -57,6 +57,9 @@ class MainWindow(QMainWindow):
         self.quitButton = QPushButton(u"Quitter")
         self.quitButton.setIcon(QIcon("./Icon/home.png"))
         self.connect(self.quitButton,SIGNAL("clicked()"),self.quitEditor)
+
+        self.testButton = QPushButton(u"Démarrer le test")
+        self.connect(self.quitButton, SIGNAL("clicked()"),self.launchTest)
 
         self.comment = QLabel("")
 
@@ -129,6 +132,10 @@ class MainWindow(QMainWindow):
 
     def selectText(self, sentence):
         if self.modeEditor:
+            cursor = self.editor.textCursor()
+            cursor.setPosition(0, QTextCursor.MoveAnchor)
+            self.editor.setTextCursor(cursor)
+            print self.editor.textCursor().position()
             self.editor.find(sentence)
             cursor = self.editor.textCursor()
             cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor, len(sentence))
@@ -137,6 +144,12 @@ class MainWindow(QMainWindow):
         if self.modeEditor:
             cursor = self.editor.textCursor()
             cursor.removeSelectedText()
+
+    def writeInFile(self, sentence):
+        if self.modeEditor:
+            self.eraseSel()
+            cursor = self.editor.textCursor()
+            cursor.insertText(sentence)
 
     def saveFile(self):
         if self.modeEditor:
