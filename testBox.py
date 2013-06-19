@@ -151,7 +151,11 @@ class TestBox(QWidget):
         m = 0
         for mot in diff :
             m += len(mot)
-        m/=len(diff)
+
+        if len(diff) != 0:
+            m/=len(diff)
+        else:
+            m = 0 
 
         h = len(diff)
 

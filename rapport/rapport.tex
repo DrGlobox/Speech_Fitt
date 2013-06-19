@@ -149,7 +149,45 @@
 	\section{Le mode édition}
 	
 	Ce second mode, nommé "édition", ne peut apparaître en démarrant le logiciel puisqu'il affiche le contenu d'un fichier. Ce mode est donc activé lorsque l'utilisateur, dans l'arborescence du navigateur, choisit non pas un dossier mais un fichier texte.\\
-	Ici aussi, un intérêt a été porté au niveau de la simplicité de l'interface. Ainsi, pour ne pas dérouter l'utilisateur, la disposition reste la même: ni la barre de boutons, ni la partie de retour sur la reconnaissance ne changent de proportions. Et logiquement, l'édition étant le sujet principal de ce mode, il a été choisi de donner la plus grande partie de la fenêtre à l'espace édition et de centrer celui-ci. Ayant le même but pour la navigation, il a été choisi de simplement placer la surface d'édition à l'emplacement ou se trouve la partie navigation dans le mode du même nom.
+	Ici aussi, un intérêt a été porté au niveau de la simplicité de l'interface. Ainsi, pour ne pas dérouter l'utilisateur, la disposition reste la même: ni la barre de boutons, ni la partie de retour sur la reconnaissance ne changent de proportions. Et logiquement, l'édition étant le sujet principal de ce mode, il a été choisi de donner la plus grande partie de la fenêtre à l'espace édition et de centrer celui-ci. Ayant le même but pour la navigation, il a été choisi de simplement placer la surface d'édition à l'emplacement ou se trouve la partie navigation dans le mode du même nom. Ci-dessous, une capture du mode d'édition.\\
+	
+	\begin{center}
+		\includegraphics[width=10cm]{editor}\\
+		\emph{Le mode édition est composé d'une partie édition prenant la majeure partie de la place, d'une partie boutons et d'une partie "retour". La proximité avec le mode navigation donne une cohérence au logiciel.\\}
+	\end{center}
+	
+	
+	La partie d'édition est très simple puisqu'il s'agit simplement d'une "boîte" où écrire du texte.\\
+	Pour le bandeau de boutons, la partie de gauche évolue puisqu'elle est dédiée à la fonction principale actuelle qui est ici l'édition de fichiers et non plus la navigation. Les boutons donnent donc ici la possibilité de quitter le mode mais aussi de sauvegarder le fichier actuel pour ne pas perdre d'éventuelles modifications récentes. Des icônes ont été intégrées pour identifier plus facilement les actions en accord avec l'ensemble des boutons du logiciel.\\
+	La partie inférieure de la fenêtre n'évolue pas par rapport au mode de navigation puisque la reconnaissance vocale a toujours lieu quelque soit le mode du logiciel.
+	
+	\chapter{Les tests d'efficacité}
+	
+	La partie la plus importante de ce projet puisque représentant son but premier est la partie de tests de la reconnaissance vocale. Malgré le fait qu'elle est l'objectif principal, il faut pour une utilisation la moins dérangeante possible que ces tests restent discrets. C'est pourquoi cette partie test est accessible à partir d'un simple bouton. Ce bouton à la façon d'un play/pause permet de lancer un test et de savoir lorsque celui-ci est terminé ou bien de l'arrêter.\\
+	Deux tests ont été développés, en écho à ce qui a été étudié lors du semestre dans la matière: un premier test dans le navigateur qui a pour but de se rendre dans un fichier le plus rapidement. Le second test, dans l'éditeur, a pour but d'atteindre un certain endroit dans le fichier à partir d'un autre.
+	
+		\section{Le test du navigateur}
+		
+		Le test du navigateur a pour but de mesurer le temps que met l'utilisateur pour atteindre un fichier cible. Pour cela, il faut que le logiciel puisse enregistrer la cible à atteindre.\\
+		Lorsque l'utilisateur veut lancer un test de navigateur, il faut donc qu'il clique sur le bouton de lancement de test. Cependant, pour que le test soit identifié, il faut en toute logique qu'il se situe en mode navigateur. C'est le fait qu'il soit en mode navigateur qui lance le bon test. Une fenêtre s'ouvre alors afin de recueillir les informations nécessaires (voir ci-dessous la fenêtre).\\
+		
+		\begin{center}
+			\includegraphics[width=5cm]{test}\\
+			\emph{La fenêtre de test ci-dessus s'ouvre lorsqu'un test de navigateur est lancé.\\}
+		\end{center}
+		
+		La fenêtre demande de remplir le chemin ainsi que le nom du fichier. Le chemin est simplement le dossier où le fichier est contenu. Cela permet d'éviter d'éventuelles erreurs de manipulation si l'on part d'un dossier où le même nom de fichier existant. Comme on ne vise pas ce dernier, il ne faut pas que le test s'arrête si l'on sélectionne ce fichier.\\
+		Une fois les informations nécessaires renseignées, l'utilisateur lance le test. Ce test faire démarrer un chronomètre et on décompte donc le temps. Le lancement du chronomètre est visible par l'icône du bouton de test qui change (\includegraphics[width=0.5cm]{stop}).\\
+		La fenêtre reste cependant ouverte pour plusieurs raisons. Tout d'abord, cela permet de rappeler à l'utilisateur qu'un test est en cours en plus du changement d'icône dans le bouton de test. Cela permet aussi de pouvoir afficher une fois le test terminé les résultats. Afin d'indiquer à l'utilisateur qu'il n'a plus à entrer d'informations, on grise les champs comme le montre la capture ci-dessous.\\
+		
+		\begin{center}
+			\includegraphics[width=5cm]{test_run}\\
+			\emph{Une fois le test lancé, la fenêtre reste ouverte mais les champs sont grisés.\\}
+		\end{center}
+		
+		
+		
+	
 	
 	
 	
