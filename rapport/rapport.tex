@@ -110,15 +110,48 @@
 	
 	\chapter{L'interface logicielle}
 	
+	
 	Afin de pouvoir réaliser des tests de calcul de la performance de la navigation vocale, il est nécessaire de mettre en place un support comportant des actions. Ces actions pourront \^etre chronométrées ou non pour laisser à l'utilisateur le choix d'utiliser le logiciel dans sa fonction secondaire utilisée pour le support. Cette fonction est un navigateur de fichiers avec visualisation de fichiers texte intégré. Ainsi, si l'utilisateur le souhaite, il peut naviguer dans ses fichiers et utiliser le logiciel comme un navigateur habituel. La différence ici est que le navigateur ne permet que de se déplacer dans l'arborescence de fichiers et d'ouvrir les fichiers dans l'éditeur intégré. L'utilisateur ne pourra donc pas ouvrir un fichier dans un autre logiciel. \\
-	Malgré ceci, le but premier du projet étant de permettre la mise en place de test chronométrés, le navigateur n'est qu'une fonction annexe. Il faut donc bien garder en t\^ete que le navigateur a pour fonction première d'\^etre un support aux tests.\\ \ \\
+	Malgré ceci, le but premier du projet étant de permettre la mise en place de test chronométrés, le navigateur n'est qu'une fonction annexe. Il faut donc bien garder en t\^ete que le navigateur a pour fonction première d'\^etre un support aux tests.\\ \ \\	
+	La matière étudiée pour ce projet se focalisant sur l'interface homme/machine, il est important d'attacher de l'importance à la composition de l'interface afin quelle soit utilisable aisément. C'est pourquoi il a été choisi de réaliser une interface simple, avec peu de boutons et répartis de manière astucieuse.\\
+	Deux modes coexistent donc dans ce logiciel: un mode de navigation qui permet de se déplacer dans une arborescence de fichiers et un mode d'édition, réservée aux fichiers texte puisque c'est le seul utile aux tests, qui permet de lire, sélection, écrire et sauvegarder un fichier texte.
+	
+	\section{Le mode navigation}
+	
+	Le mode navigation est constitué de trois parties: la partie navigation "pure", la partie "boutons" et la partie "retour" de la reconnaissance vocale.\\
 	
 	\begin{center}
 		\includegraphics[width=11cm]{explorer}\\
 		\emph{Ici, on peut voir l'interface lors du lancement du logiciel. Il ressemble à un navigateur de fichier standard simplifié.\\}
 	\end{center}
 	
-	La matière étudiée pour ce projet se focalisant sur l'interface homme/machine, il est important d'attacher de l'importance à la composition de l'interface afin quelle soit utilisable aisément.
+	Comme dans tout navigateur de fichier, la plus grand partie de la fenêtre doit être affectée à la navigation de fichier. C'est pourquoi cette partie est insérée au centre afin d'attirer immédiatement l'attention de l'utilisateur. Les autres éléments doivent se faire suffisamment discrets pour ne pas perturber la concentration sur la navigation. Cependant, ils doivent être identifiables facilement et atteignable facilement.\\
+	Les boutons ont donc été regroupés dans la partie haute de la fenêtre et divisés en deux parties: la partie aide à la navigation classique, la deuxième en lien avec notre but du projet, la navigation vocale.\\
+	
+	\begin{center}
+		\includegraphics[width=12cm]{buttons}\\
+		\emph{La barre de boutons: à gauche les boutons d'aide à la navigation classique (accueil et précédent), à droite les outils pour la navigation vocale et les tests (lancer/arrêter le test, aide à la commande vocale).\\}
+	\end{center}
+	
+	Le fait de diviser en deux les boutons permet de bien identifier les différentes fonctions du logiciel. La partie gauche existe sur la grande majorité des navigateurs de fichiers et sont placés au même endroit, l'utilisateur ne doit donc pas être perdu et l'ont ne cherche pas à bousculer cette règle. A droite, on peut se permettre de placer des fonctions spécifiques à notre logiciel puisqu'en lien avec le vocal.\\
+	Le bouton "play", facilement identifiable de par son icône, lance un test. L'icône devient un carré rouge ensuite pour indiquer l'arrêt possible du test mais surtout qu'un test est en cours.\\
+	Le bouton "aide", reconnaissable lui aussi permet d'ouvrir une fenêtre (voir ci-dessous) qui apporte une aide non négligeable pour un utilisateur non habitué du logiciel. On y indique les mots-clés reconnus par le logiciel pour la reconnaissance vocale. L'utilisateur peut s'y référer afin de mémoriser ces mots-clés.\\
+	La partie du milieu de ce bandeau est laissée vide en temps normal, mais lors du pilotage à la voix, une interaction avec l'utilisateur est prévue; essayez donc de remercier le logiciel !
+	
+	\begin{center}
+		\includegraphics[width=8cm]{help}\\
+		\emph{La fenêtre d'aide permet d'indiquer les mots-clés à utiliser pour la navigation par la voix à l'utilisateur.\\}
+	\end{center}
+	
+	Le navigateur contient une troisième partie, tout en bas de la fenêtre, sur toute la longueur.\\
+	Cette partie, très discrète puisqu'utile uniquement dans certains cas précis, a pour but d'indiquer ce que le logiciel reconnaît durant la reconnaissance.	On peut donc y voir la dernière interprétation renvoyée par Google Speech, qu'elle ait été interprétée correctement ou non.
+	
+	\section{Le mode édition}
+	
+	Ce second mode, nommé "édition", ne peut apparaître en démarrant le logiciel puisqu'il affiche le contenu d'un fichier. Ce mode est donc activé lorsque l'utilisateur, dans l'arborescence du navigateur, choisit non pas un dossier mais un fichier texte.\\
+	Ici aussi, un intérêt a été porté au niveau de la simplicité de l'interface. Ainsi, pour ne pas dérouter l'utilisateur, la disposition reste la même: ni la barre de boutons, ni la partie de retour sur la reconnaissance ne changent de proportions. Et logiquement, l'édition étant le sujet principal de ce mode, il a été choisi de donner la plus grande partie de la fenêtre à l'espace édition et de centrer celui-ci. Ayant le même but pour la navigation, il a été choisi de simplement placer la surface d'édition à l'emplacement ou se trouve la partie navigation dans le mode du même nom.
+	
+	
 	
 	
 	

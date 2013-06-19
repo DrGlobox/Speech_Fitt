@@ -59,9 +59,15 @@ class MainWindow(QMainWindow):
         self.homeButton = QPushButton(u"Accueil")
         self.homeButton.setIcon(QIcon("./Icon/home.png"))
         self.connect(self.homeButton,SIGNAL("clicked()"),self.homePage)
+
+        #boutons mode édition
         self.quitButton = QPushButton(u"Quitter")
-        self.quitButton.setIcon(QIcon("./Icon/home.png"))
+        self.quitButton.setIcon(QIcon("./Icon/sortir.png"))
         self.connect(self.quitButton,SIGNAL("clicked()"),self.quitEditor)
+       
+        self.saveButton = QPushButton(u"Enregistrer")
+        self.saveButton.setIcon(QIcon("./Icon/save.png"))
+        self.connect(self.saveButton,SIGNAL("clicked()"),self.saveFile)
 
         self.testButton = QPushButton(u"")
         self.testButton.setIcon(QIcon("./Icon/play.png"))
@@ -71,7 +77,8 @@ class MainWindow(QMainWindow):
 
         self.statusBar().showMessage("OK")
         
-        self.helpButton = QPushButton(u"?")
+        self.helpButton = QPushButton(u"")
+        self.helpButton.setIcon(QIcon("./Icon/faq.png"))
 
         self.browser = BrowserWidget(self)
         self.browser.setStyleSheet("background-color:white;");
@@ -85,6 +92,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.prevButton)
         layout.addWidget(self.homeButton)
         layout.addWidget(self.quitButton)
+        layout.addWidget(self.saveButton)
         layout.addStretch()
         layout.addWidget(self.comment)
         layout.addStretch()
@@ -120,12 +128,14 @@ class MainWindow(QMainWindow):
             self.prevButton.hide()
             self.homeButton.hide()
             self.quitButton.show()
+            self.saveButton.show()
         else:
             self.browser.show()
             self.editor.hide()
             self.prevButton.show()
             self.homeButton.show()
             self.quitButton.hide()
+            self.saveButton.hide()
 
 
 

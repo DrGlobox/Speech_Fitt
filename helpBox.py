@@ -10,7 +10,7 @@ class HelpBox(QWidget):
         QWidget.__init__(self)
 
         self.setWindowTitle(u"Aide ")
-        self.resize(400,500)
+        self.resize(400,550)
         self.createInterface()
         self.hide()
 
