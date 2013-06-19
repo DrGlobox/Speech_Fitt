@@ -14,7 +14,7 @@ from testBox import *
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__ (self)
-        self.setWindowTitle(u"Speech Fitts")
+        self.setWindowTitle(u"Speech file explorer")
         self.resize(640,400)
 
         self.createInterface()

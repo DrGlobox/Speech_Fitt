@@ -1,0 +1,160 @@
+\documentclass[a4paper, 11pt]{report}
+
+%\usepackage{fullpage}
+
+
+
+\input{modele}
+	
+	\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{} 
+	\renewcommand{\appendixpagename}{Annexes}  
+	\renewcommand{\appendixtocname}{Annexes}    
+  
+
+\begin{document}
+
+
+
+\makeatletter
+	\def\clap#1{\hbox to 0pt{\hss #1\hss}}%
+	\def\ligne#1{%
+	\hbox to \hsize{%
+	\vbox{\centering #1}}}%
+	\def\haut#1#2#3{%
+	\hbox to \hsize{%
+	\rlap{\vtop{\raggedright #1}}%
+	\hss
+	\clap{\vtop{\centering #2}}%
+	\hss
+	\llap{\vtop{\raggedleft #3}}}}%
+	\def\bas#1#2#3{%
+	\hbox to \hsize{%
+	\rlap{\vbox{\raggedright #1}}%
+	\hss
+	\clap{\vbox{\centering #2}}%
+	\hss
+	\llap{\vbox{\raggedleft #3}}}}%
+	\def\maketitle{%
+	\thispagestyle{empty}\vbox to \vsize{%
+	\haut{}{\@blurb}{}
+	\vfill
+	\vspace{1cm}
+\begin{flushleft}
+	%\usefont{OT1}{ptm}{m}{n}
+	\huge \@title
+\end{flushleft}
+	\par
+	\hrule height 4pt
+	\par
+\begin{flushright}
+	%\usefont{OT1}{phv}{m}{n}
+	\Large \@author
+	\par
+\end{flushright}
+	\vspace{1cm}
+	\vfill
+	\vfill
+
+\begin{center}
+	\includegraphics[width=5cm]{logo_UTBM.jpg}
+\end{center}
+
+\bas{}{Printemps 2013}{}
+}%
+\cleardoublepage
+}
+\def\date#1{\def\@date{#1}}
+\def\author#1{\def\@author{#1}}
+\def\title#1{\def\@title{#1}}
+\def\location#1{\def\@location{#1}}
+\def\blurb#1{\def\@blurb{#1}}
+\date{\today}
+\author{}
+\title{}
+
+% informations
+\location{Belfort}\blurb{}
+\makeatother
+\title{Application des méthodes GOMS et Keystroke à la navigation vocale}
+\author{\small{Paul \bsc{Locatelli} et Pierre \bsc{Rognon}}}
+\blurb{%
+	\textbf{GL40 - Interface homme/machine et perception}\\
+	Université de Technologie de Belfort-Montbéliard
+}% 
+
+
+	
+	\maketitle
+	
+	\newpage
+	
+	\shorttoc{Sommaire}{0}
+	
+	
+	\chapter*{Introduction}
+	\addcontentsline{toc}{chapter}{Introduction}
+	
+	Pour ce projet de fin d'UV de GL40, une partie intéressante présentait des méthodes permettant de calculer le temps de navigation attendu sur un ordinateur. Ces calculs mettent en avant une comparaison afin de savoir dans quels cas un moyen est plus intéressant comparé à un autre. Cependant, lors de ces études, seuls deux moyens ont été étudiés: le clavier et la souris. Une troisième solution éventuelle était la combinaison des deux.\\ \ \\
+	Cependant, si ces deux moyens sont généralement suffisant pour la vie de tous les jours afin de piloter un ordinateur de façon aisée, il convient de penser aux personnes pouvant éprouver des difficultés à l'utilisation de ces périphériques. Afin de palier à d'éventuels problèmes de mobilité des mains, qui peuvent empêcher d'utiliser de manière efficace la souris et le clavier, une solution peut-être la reconnaissance vocale afin de piloter un navigateur de fichiers par exemple.\\
+	Le but de ce projet est donc de mettre en place des tests et l'interface nécessaire pour les réaliser afin de mesurer l'efficacité de cette troisième méthode. Ce rapport va donc détailler tout d'abord la composante de recherche vocale, puis se concentrer sur le navigateur et donc l'interface construite dans lequel les tests se dérouleront. Enfin, les fonctionnalités des tests en eux-même seront abordés ainsi qu'une synthèse sur l'efficacité de la méthode.
+	
+	\chapter{L'outil de reconnaissance vocale}
+	
+	Le développement d'un outil de reconnaissance vocale prenant énormément de temps, de ressources et demandant des connaissances solides dans le domaine, il aurait été impossible d'en développer au cours du projet. C'est pourquoi une recherche sur les modules de reconnaissance vocale a dû être effectuée. Ces logiciels n'étant pas très répandus et souvent propriétaires et payants, le choix n'a pas été aisé. Cependant, un module s'est détaché de tous les autres: Google Speech. Ce dernier est disponible dans plusieurs langues et sur de nombreuses plate forme ce qui en fait un outil flexible.\\
+	Sa puissance réside surtout dans le fait que c'est un module exécuté sur des serveurs distants de la marque, qui sont efficaces.\\
+	Cette puissance est donc aussi un inconvénient puisqu'elle implique une connexion effective avec les serveurs de Google lors de son utilisation. Le logiciel naissant de ce projet nécessitera donc un accès à internet permanent. N'ayant pas d'autre alternative crédible à la solution de Google, du fait d'une absence d'API pour les principaux concurrents (comme les modules de recherche vocale de Windows ou d'Ubuntu, qui s'ils sont efficaces ne sont pas utilisables dans un logiciel tiers), nous avons choisi Google Speech.\\ \ \\
+	L'utilisation de Google Speech peut s'effectuer par l'intermédiaire d'un terminal (sous Linux ou Mac). Il n'y a pas de commande pour ce module à proprement parler mais Google Speech demande l'envoi du fichier audio où la reconnaissance vocale doit être appliquée. Une simple requête HTTP suffit donc pour l'utilisation du service. La solution la plus simple ici consistait donc à envoyer par l'intermédiaire d'un terminal le fichier audio enregistré à décoder. Le serveur Google Speech va se contenter alors de renvoyer le texte déchiffré.\\ \ \\
+	Afin d'utiliser au mieux le service de Google, il a été choisi de segmenter un enregistrement permanent en fichiers audio de courte durée. Après quelques essais, il s'est avéré que 3 secondes étaient largement suffisantes pour les enregistrement puissent réunir une commande vocale entière sans qu'une partie de la commande soit sur un premier ficher et l'autre sur un second. Ce problème fait en effet échouer la reconnaissance puisqu'elle n'est alors pas pertinente.\\
+	Le fait de devoir envoyer en permanence des informations afin de garder un enregistrement audio continu implique l'utilisation dans le projet de threads. Les threads permettent d'envoyer alternativement un fichier audio au serveur de Google et de continuer à enregistrer dans le même temps, ce qui évite des coupures.\\
+	Lors des résultats sur les durées des tests passés dans le logiciel, il faudra donc prendre en compte le fait qu'une latence peut apparaître due à l'envoi des données au serveur Google, l'analyse de celles-ci et le retour vers la machine cliente.
+	
+	\chapter{L'interface logicielle}
+	
+	Afin de pouvoir réaliser des tests de calcul de la performance de la navigation vocale, il est nécessaire de mettre en place un support comportant des actions. Ces actions pourront \^etre chronométrées ou non pour laisser à l'utilisateur le choix d'utiliser le logiciel dans sa fonction secondaire utilisée pour le support. Cette fonction est un navigateur de fichiers avec visualisation de fichiers texte intégré. Ainsi, si l'utilisateur le souhaite, il peut naviguer dans ses fichiers et utiliser le logiciel comme un navigateur habituel. La différence ici est que le navigateur ne permet que de se déplacer dans l'arborescence de fichiers et d'ouvrir les fichiers dans l'éditeur intégré. L'utilisateur ne pourra donc pas ouvrir un fichier dans un autre logiciel. \\
+	Malgré ceci, le but premier du projet étant de permettre la mise en place de test chronométrés, le navigateur n'est qu'une fonction annexe. Il faut donc bien garder en t\^ete que le navigateur a pour fonction première d'\^etre un support aux tests.\\ \ \\
+	
+	\begin{center}
+		\includegraphics[width=11cm]{explorer}\\
+		\emph{Ici, on peut voir l'interface lors du lancement du logiciel. Il ressemble à un navigateur de fichier standard simplifié.\\}
+	\end{center}
+	
+	La matière étudiée pour ce projet se focalisant sur l'interface homme/machine, il est important d'attacher de l'importance à la composition de l'interface afin quelle soit utilisable aisément.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Aussi, si la navigation peut se faire au clavier et à la souris, elle pourra \^etre mesurée aussi. Un bémol tout de m\^eme: l'utilisateur devra s'imposer une discipline puisque le logiciel ne fait pas la différence entre clavier, souris ou voix. Il devra donc lors du test ne pas "tricher".
+	
+	
+	
+	
+	
+	
+		
+	\newpage	
+		
+	\tableofcontents
+
+\begin{appendices}
+
+    \chapter{Prédicat soustraction}
+
+
+
+\end{appendices} 
+
+
+
+
+		
+\end{document}
+
+
+
+
