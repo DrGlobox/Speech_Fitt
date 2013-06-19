@@ -158,11 +158,11 @@ class MainWindow(QMainWindow):
             cursor = self.editor.textCursor()
             cursor.setPosition(0, QTextCursor.MoveAnchor)
             self.editor.setTextCursor(cursor)
-            print self.editor.textCursor().position()
             self.editor.find(sentence)
             cursor = self.editor.textCursor()
             cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor, len(sentence))
-            self.testBox.testSelection(sentence)
+            if self.testBox :
+                self.testBox.testSelection(sentence)
 
     def eraseSel(self):
         if self.modeEditor:
