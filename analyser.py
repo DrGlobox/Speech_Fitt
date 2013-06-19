@@ -8,7 +8,7 @@ from levenshtein import *
 
 OPEN = [u"ouvrir",u"ouvre",u"va",u"dossier",u"fichier",u"ouvre"]
 RETURN = [u"retour",u"arrière",u"reviens",u"non",u"nan"]
-SELECT = [u"selectionne", u"selection", u"selectionnez", u"trouvent", u"trouver"]
+SELECT = [u"selectionne", u"selection", u"selectionnez", u"trouvent", u"trouver",u"cherche",u"cherchez",u"cherchent"]
 ERASE = [u"efface", u"supprime", u"enleve", u"suprime", u"effacer", u"supprimer", u"enlever"]
 SAVE = [u"sauvegarde", u"enregistre", u"sauvegarder", u"enregistrer"]
 WRITE = [u"ecris", u"taper", u"marquer", u"inserer", u"ecrire"]

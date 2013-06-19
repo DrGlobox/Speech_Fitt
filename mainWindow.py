@@ -17,15 +17,16 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(u"Speech file explorer")
         self.resize(640,400)
 
+        self.modeEditor = False
+        self.testBox = False
+        self.testStarted = False
+
         self.createInterface()
         self.createHelp()
         self.createAnalyser()
         self.createSpeech()
 
-        self.testBox = False
-        self.modeEditor = False
         self.toggleTextEditor(False)
-        self.testStarted = False
 
     def createAnalyser(self):
         self.analyser = Analyser(self.browser, self.editor, self.comment)
@@ -64,7 +65,7 @@ class MainWindow(QMainWindow):
 
         self.testButton = QPushButton(u"")
         self.testButton.setIcon(QIcon("./Icon/play.png"))
-        self.connect(self.testButton, SIGNAL("clicked()"),self.launchTest)
+        self.connect(self.testButton, SIGNAL("clicked()"),self.testButtonClicked)
 
         self.comment = QLabel("")
 
@@ -100,6 +101,17 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.menu)
 
 
+    def testButtonClicked(self):
+        if self.testBox :
+            self.testBox.deleteLater()
+            self.testBox = False
+        self.testBox = TestBox()
+        self.testBox.hide()
+        self.testBox.button = self.testButton
+        self.testBox.editor = self.editor
+        self.testBox.modeEditor = self.modeEditor
+        self.testBox.toggle()
+
     def toggleTextEditor(self,boolean):
         self.modeEditor = boolean
         if boolean:
@@ -116,15 +128,6 @@ class MainWindow(QMainWindow):
             self.quitButton.hide()
 
 
-
-    def launchTest(self):
-        if self.testStarted == True:
-            self.testButton.setIcon(QIcon("./Icon/stop.png"))
-            self.testStarted = False
-        else:
-            self.testBox = TestBox(self.modeEditor)
-            self.testButton.setIcon(QIcon("./Icon/play.png"))
-            self.testStarted = True
 
     def openFile(self,path):
         if not self.modeEditor: 
@@ -155,10 +158,11 @@ class MainWindow(QMainWindow):
             cursor = self.editor.textCursor()
             cursor.setPosition(0, QTextCursor.MoveAnchor)
             self.editor.setTextCursor(cursor)
-            print self.editor.textCursor().position()
             self.editor.find(sentence)
             cursor = self.editor.textCursor()
             cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor, len(sentence))
+            if self.testBox :
+                self.testBox.testSelection(sentence)
 
     def eraseSel(self):
         if self.modeEditor:

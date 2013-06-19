@@ -10,7 +10,7 @@ class Editor(QTextEdit):
         self.path = ""
 
     def setFile(self,path):
-        print path
+        #print path
         f = open(path, 'r')
         self.path = path
         txt = ""

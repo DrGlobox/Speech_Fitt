@@ -63,7 +63,7 @@ class BrowserWidget(QScrollArea):
         self.update()
         self.cleanDires()
         self.prevPath = self.curDir.path()
-        print path
+        #print path
         directory = QDir(path)
         self.curDir = directory
         self.changeDir(directory)
