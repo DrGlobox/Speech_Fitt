@@ -52,16 +52,87 @@ Keystroke à la navigation vocale}
 	
 	\begin{column}{5cm}
    		\begin{itemize}
-			\item 
+			\item Deux méthodes de navigations étudiées : clavier et souris;
+			\item Troisième méthode existante: la voix;
+			\item Utile pour des personnes handicapées;
+			\item But: savoir si cette méthode est efficace.
 		\end{itemize}
   	\end{column}
 	\begin{column}{5cm}
-		%\includegraphics[width=5cm]{tangram}
+		\includegraphics[width=5cm]{reconnaissance-vocale}
   	\end{column}
 	
 	\end{columns}
     	
 \end{frame}
+
+	\section{L'outil de reconnaissance vocale}
+	
+\begin{frame}{L'outil de reconnaissance vocale}
+
+	\begin{columns}[c]
+	
+	\begin{column}{5cm}
+   		\begin{itemize}
+			\item un outil complexe et lourd;
+			\item utilisation de Google Speech;
+			\item facile à utiliser;
+			\item indépendant de toute plateforme.
+		\end{itemize}
+  	\end{column}
+	\begin{column}{5cm}
+		\includegraphics[width=5cm]{google-logo}
+  	\end{column}
+	
+	\end{columns}
+
+\end{frame}
+
+\begin{frame}{Google Speech: fonctionnement}
+
+	\begin{columns}[c]
+	
+	\begin{column}{5cm}
+   		\begin{enumerate}
+			\item enregistrement d'un fichier audio;
+			\item envoi du fichier au serveur Google Speech;
+			\item traitement du fichier par le serveur;
+			\item réponse du serveur avec la phrase décodée.
+		\end{enumerate}
+  	\end{column}
+	\begin{column}{5cm}
+		\includegraphics[width=5cm]{http}
+  	\end{column}
+	
+	\end{columns}
+
+\end{frame}
+
+\begin{frame}{Enregistrement du flux: un problème}
+
+	\begin{itemize}
+		\item l'enregistrement doit être permanent;
+		\item impossible d'envoyer un flux continu au serveur;
+		\item découpage en fichiers de 3 secondes après tests;
+		\item utilisation de threads pour en permanence avoir des envois en cours et gagner en fluidité.
+	\end{itemize}
+
+\end{frame}
+
+	\section{L'interface logicielle}
+	
+\begin{frame}{L'interface logicielle}
+
+	\begin{itemize}
+		\item support nécessaire pour pouvoir mettre en place des tests de navigation vocale;
+		\item choix d'une interface à la manière d'un navigateur de fichiers;
+		\item éditeur de fichier texte intégré pour un autre test;
+		\item choix d'une interface simple mais fonctionnelle au clavier et à la souris.
+	\end{itemize}
+	
+\end{frame}
+
+
 
 
 	
