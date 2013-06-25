@@ -100,7 +100,7 @@
 	
 	\chapter{Analyse du projet}
 	
-	Afin de mieux formaliser les étapes qui doivent \^etre suivies tout au long du projet, il a été choisi de suivre ce qui a été appris lors de ce semestre en GL40. La première étape consiste donc à lister les différentes entités attenantes au sujet.\\
+	Afin de mieux formaliser les étapes qui doivent \^etre suivies tout au long du projet, il a été choisi de suivre ce qui a été appris lors de ce semestre en GL40. La première étape consiste donc à lister les différentes entités attenantes au sujet. Un modèle ARCH/Amodeus sera mis en place afin de mieux délimiter les buts et tâches à effectuer.\\
 	
 		\section{Liste des entités}
 		
@@ -161,6 +161,16 @@
 				\item le dossier dans lequel se situe le fichier à atteindre;
 				\item le document ouvert si on est en mode éditeur;
 			\end{itemize}
+			
+			
+		\section{ARCH/Amodeus}
+		
+		\begin{center}
+			\includegraphics[width=12cm]{nimp}\\
+			\emph{Ci-dessus, le modèle ARCH/Amodeus du projet}
+		\end{center}
+			
+		
 	
 	\chapter{L'outil de reconnaissance vocale}
 	
@@ -178,7 +188,14 @@
 	Afin de pouvoir réaliser des tests de calcul de la performance de la navigation vocale, il est nécessaire de mettre en place un support comportant des actions. Ces actions pourront \^etre chronométrées ou non pour laisser à l'utilisateur le choix d'utiliser le logiciel dans sa fonction secondaire utilisée pour le support. Cette fonction est un navigateur de fichiers avec visualisation de fichiers texte intégré. Ainsi, si l'utilisateur le souhaite, il peut naviguer dans ses fichiers et utiliser le logiciel comme un navigateur habituel. La différence ici est que le navigateur ne permet que de se déplacer dans l'arborescence de fichiers et d'ouvrir les fichiers dans l'éditeur intégré. L'utilisateur ne pourra donc pas ouvrir un fichier dans un autre logiciel. \\
 	Malgré ceci, le but premier du projet étant de permettre la mise en place de tests chronométrés, il faut donc bien garder en t\^ete que le navigateur a pour fonction première d'\^etre un support aux tests.\\ \ \\	
 	La matière étudiée pour ce projet se focalisant sur l'interface homme/machine, il est important d'attacher de l'importance à la composition de l'interface afin quelle soit utilisable aisément. C'est pourquoi il a été choisi de réaliser une interface simple, avec peu de boutons et répartis de manière astucieuse.\\
-	Deux modes coexistent donc dans ce logiciel: un mode de navigation qui permet de se déplacer dans une arborescence de fichiers et un mode d'édition, réservée aux fichiers texte puisque c'est le seul utile aux tests, qui permet de lire, sélection, écrire et sauvegarder un fichier texte.
+	Pour pouvoir mettre en place plus facilement cette interface, un modèle PAC a été utilisé.
+	Aussi, deux modes sont ressortis et coexistent donc dans ce logiciel: un mode de navigation qui permet de se déplacer dans une arborescence de fichiers et un mode d'édition, réservée aux fichiers texte puisque c'est le seul utile aux tests, qui permet de lire, sélection, écrire et sauvegarder un fichier texte.
+	
+	\section{Le modèle PAC appliqué au projet}
+	
+	\begin{center}
+		\includegraphics[width=14cm]{swag}
+	\end{center}
 	
 	\section{Le mode navigation}
 	
@@ -261,7 +278,11 @@
 	
 		\section{Le test de l'éditeur}
 		
+		Le second test, relatif au mode éditeur, doit mesurer le temps que met un utilisateur à sélectionner un mot ou une expression dans un fichier texte. De la même manière que le test du navigateur, l'utilisateur doit cliquer sur le bouton du lancement d'un test. Il faut alors qu'il soit en mode éditeur pour que le logiciel le reconnaisse que c'est ce test qu'il doit lancer. La fenêtre ci-dessous s'ouvre alors afin de permettre à l'utilisateur de rentrer ses informations.\\
 		
+		\begin{center}
+			\includegraphics[width=7cm]{}
+		\end{center}
 	
 	
 	
