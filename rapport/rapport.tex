@@ -98,6 +98,61 @@
 	Cependant, si ces deux moyens sont généralement suffisant pour la vie de tous les jours afin de piloter un ordinateur de façon aisée, il convient de penser aux personnes pouvant éprouver des difficultés à l'utilisation de ces périphériques. Afin de palier à d'éventuels problèmes de mobilité des mains, qui peuvent empêcher d'utiliser de manière efficace la souris et le clavier, une solution peut-être la reconnaissance vocale afin de piloter un navigateur de fichiers par exemple.\\
 	Le but de ce projet est donc de mettre en place des tests et l'interface nécessaire pour les réaliser afin de mesurer l'efficacité de cette troisième méthode. Ce rapport va donc détailler tout d'abord la composante de recherche vocale, puis se concentrer sur le navigateur et donc l'interface construite dans lequel les tests se dérouleront. Enfin, les fonctionnalités des tests en eux-même seront abordés ainsi qu'une synthèse sur l'efficacité de la méthode.
 	
+	\chapter{Analyse du projet}
+	
+	Afin de mieux formaliser les étapes qui doivent \^etre suivies tout au long du projet, il a été choisi de suivre ce qui a été appris lors de ce semestre en GL40. La première étape consiste donc à lister les différentes entités attenantes au sujet.\\
+	
+		\section{Liste des entités}
+		
+			\subsection{Liste des postes de travail}
+			
+			Un seul poste de travail est requis pour l'utilisation de l'application: le poste de l'utilisateur de celle-ci. Ce poste peut donc \^etre n'importe quel ordinateur ou machine capable de faire fonctionner le projet.
+			
+			\subsection{Liste des buts et sous-buts}
+			
+			Il n'y a qu'un but principal à cette application mais beaucoup d'autres en découlent. Ce principal but est \emph{le test de la méthode de navigation par la voix.}\\
+			En découlent donc les sous-buts suivants:
+			\begin{itemize}
+				\item naviguer dans une arborescence de fichiers;
+				\item éditer un fichier texte;
+				\item lancer un test ou l'arr\^eter;
+				\item consulter les résultats du test effectué.
+			\end{itemize}
+			
+			\subsection{Liste des t\^aches et sous-t\^aches}
+			
+			Pour pouvoir réaliser les buts et sous-buts énoncés plus haut, des tâches sont requises. Les tâches principales sont:
+			\begin{itemize}
+				\item l'analyse des sons entendus;
+				\item la recherche de l'arborescence à afficher;
+				\item mesurer le temps lors d'un test.
+			\end{itemize}
+			
+			Ces tâches sont aussi composées de sous-tâches:
+			\begin{itemize}
+				\item pour l'analyse des sons entendus:
+				\begin{itemize}
+					\item enregistrer le son;
+					\item analyser le son;
+					\item retourner le texte analysé.
+				\end{itemize}
+				\item pour le recherche de l'arborescence à afficher:
+				\begin{itemize}
+					\item parcourir le dossier en cours;
+					\item retourner tous les fichiers et dossiers présents.
+				\end{itemize}
+				\item pour la mesure des temps lors d'un test:
+				\begin{itemize}
+					\item démarrer un timer lors du lancement du test;
+					\item reconnaître la fin d'un test et arrêter le timer;
+					\item calculer les temps attendus avec une autre méthode pour informer l'utilisateur.
+				\end{itemize}
+			\end{itemize}
+			
+			\subsection{Liste des données}
+			
+			
+	
 	\chapter{L'outil de reconnaissance vocale}
 	
 	Le développement d'un outil de reconnaissance vocale prenant énormément de temps, de ressources et demandant des connaissances solides dans le domaine, il aurait été impossible d'en développer au cours du projet. C'est pourquoi une recherche sur les modules de reconnaissance vocale a dû être effectuée. Ces logiciels n'étant pas très répandus et souvent propriétaires et payants, le choix n'a pas été aisé. Cependant, un module s'est détaché de tous les autres: Google Speech. Ce dernier est disponible dans plusieurs langues et sur de nombreuses plate forme ce qui en fait un outil flexible.\\
